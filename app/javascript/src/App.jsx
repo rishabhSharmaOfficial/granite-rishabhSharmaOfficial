@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+
 import { setAuthHeaders } from "apis/axios";
 // previous code if any
 import { initializeLogger } from "common/logger";
@@ -45,7 +47,6 @@ export default App;
 
 //   // previous code without changes
 // };
-
 
 // import React, { useEffect, useState } from "react";
 // import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
