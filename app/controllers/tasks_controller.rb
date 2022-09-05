@@ -5,4 +5,18 @@ class TasksController < ApplicationController
     tasks = Task.all
     render status: :ok, json: { tasks: tasks }
   end
+
+  def create
+    task = Task.new(task_params)
+    task.save!
+    respond_with_success(t("successfully_created"))
+    # respond_with_success("Task was successfully created")
+    # render status: :ok, json: { notice: 'Task was successfully created' }
+  end
+
+  private
+
+    def task_params
+      params.require(:task).permit(:title)
+  end
 end
