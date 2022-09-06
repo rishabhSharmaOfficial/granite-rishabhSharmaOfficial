@@ -14,6 +14,11 @@ class TasksController < ApplicationController
     # render status: :ok, json: { notice: 'Task was successfully created' }
   end
 
+  def show
+    task = Task.find_by!(slug: params[:slug])
+    respond_with_json({ task: task })
+  end
+
   private
 
     def task_params
