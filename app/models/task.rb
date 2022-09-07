@@ -6,6 +6,8 @@ class Task < ApplicationRecord
   validate :slug_not_changed
 
   before_create :set_slug
+  # before_validation :set_title
+  # before_save :change_title
 
   private
 
@@ -31,4 +33,12 @@ class Task < ApplicationRecord
         errors.add(:slug, t("task.slug.immutable"))
       end
     end
+
+  # def set_title
+  #   self.title = "Pay electricity bill"
+  # end
+
+  # def change_title
+  #   self.title = "Pay electricity & TV bill"
+  # end
 end
