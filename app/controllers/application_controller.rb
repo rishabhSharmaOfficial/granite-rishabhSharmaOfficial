@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user_using_x_auth_token
+
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :handle_validation_error
   rescue_from ActiveRecord::RecordNotUnique, with: :handle_record_not_unique
@@ -42,5 +44,22 @@ class ApplicationController < ActionController::Base
       is_exception = message.kind_of?(StandardError)
       error_message = is_exception ? message.record&.errors_to_sentence : message
       render status: status, json: { error: error_message }.merge(context)
+    end
+
+    def authenticate_user_using_x_auth_token
+      user_email = request.headers["X-Auth-Email"].presence
+      auth_token = request.headers["X-Auth-Token"].to_s
+      user = user_email && User.find_by!(email: user_email)
+      is_valid_token = auth_token && ActiveSupport::SecurityUtils.secure_compare(user.authentication_token, auth_token)
+      if is_valid_token
+        @current_user = user
+      else
+        respond_with_error(t("session.could_not_auth"), :unauthorized)
+        # respond_with_error("Could not authenticate with the provided credentials", :unauthorized)
+      end
+    end
+
+    def current_user
+      @current_user
     end
 end
