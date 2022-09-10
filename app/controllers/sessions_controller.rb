@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  skip_before_action :authenticate_user_using_x_auth_token
+  skip_before_action :authenticate_user_using_x_auth_token, only: :create
 
   def create
     @user = User.find_by!(email: login_params[:email].downcase)
@@ -9,6 +9,11 @@ class SessionsController < ApplicationController
       respond_with_error(t("session.incorrect_credentials"), :unauthorized)
       # respond_with_error("Incorrect credentials, try again.", :unauthorized)
     end
+  end
+
+  def destroy
+    @current_user = nil
+    # any other session cleanup tasks can be done here...
   end
 
   private
