@@ -9,13 +9,13 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
+    task = current_user.created_tasks.new(task_params)
     task.save!
     respond_with_success(t("successfully_created", entity: "Task"))
-    # respond_with_success(t("successfully_created"))
-    # respond_with_success("Task was successfully created")
-    # render status: :ok, json: { notice: 'Task was successfully created' }
   end
+  # respond_with_success(t("successfully_created"))
+  # respond_with_success("Task was successfully created")
+  # render status: :ok, json: { notice: 'Task was successfully created' }
 
   def show
     # respond_with_json({ task: @task, assigned_user: @task.assigned_user })
