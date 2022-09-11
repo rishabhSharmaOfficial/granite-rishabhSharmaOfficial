@@ -36,6 +36,8 @@ en:
   incorrect_credentials: "Incorrect credentials, try again."
   successfully_created: "%{entity} was successfully created!"
   successfully_updated: "%{entity} was successfully updated!"
+  authorization:
+    denied: "Access denied. You are not authorized to perform this action."
   task:
     slug:
       immutable: "is immutable!"

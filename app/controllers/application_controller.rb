@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotUnique, with: :handle_record_not_unique
   rescue_from ActionController::ParameterMissing, with: :handle_api_error
 
+  include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError, with: :handle_authorization_error
+
   private
 
     def handle_validation_error(exception)
@@ -61,5 +64,9 @@ class ApplicationController < ActionController::Base
 
     def current_user
       @current_user
+    end
+
+    def handle_authorization_error
+      respond_with_error(t("authorization.denied"), :forbidden)
     end
 end

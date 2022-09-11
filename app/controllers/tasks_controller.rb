@@ -1,45 +1,43 @@
-# frozen_string_literal: true
-
 class TasksController < ApplicationController
   before_action :load_task!, only: %i[show update destroy]
 
   def index
-    tasks = Task.all.as_json(include: { assigned_user: { only: %i[name id] } })
-    respond_with_json({ tasks: tasks })
+    tasks = policy_scope(Task)
+    tasks_with_assigned_user = tasks.as_json(include: { assigned_user: { only: %i[name id] } })
+    respond_with_json({ tasks: tasks_with_assigned_user })
   end
+
 
   def create
     task = current_user.created_tasks.new(task_params)
+    authorize task
     task.save!
     respond_with_success(t("successfully_created", entity: "Task"))
   end
-  # respond_with_success(t("successfully_created"))
-  # respond_with_success("Task was successfully created")
-  # render status: :ok, json: { notice: 'Task was successfully created' }
 
   def show
-    # respond_with_json({ task: @task, assigned_user: @task.assigned_user })
-    render
+    authorize @task
   end
 
   def update
-    # task = Task.find_by!(slug: params[:slug])
+    authorize @task
     @task.update!(task_params)
-    respond_with_success(t("successfully_updated"))
+    respond_with_success(t("successfully_updated", entity: "Task")
   end
 
   def destroy
+    authorize @task
     @task.destroy!
     respond_with_json
   end
 
   private
 
-    def load_task!
-      @task = Task.find_by!(slug: params[:slug])
-    end
-
     def task_params
       params.require(:task).permit(:title, :assigned_user_id)
+    end
+
+    def load_task!
+      @task = Task.find_by!(slug: params[:slug])
     end
 end
