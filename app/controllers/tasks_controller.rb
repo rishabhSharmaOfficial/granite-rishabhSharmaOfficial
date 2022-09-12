@@ -43,6 +43,7 @@ class TasksController < ApplicationController
     end
 
     def load_task!
+      print(params[:slug])
       @task = Task.find_by!(slug: params[:slug])
     end
 
