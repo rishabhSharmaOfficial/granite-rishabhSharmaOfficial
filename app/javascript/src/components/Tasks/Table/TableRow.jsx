@@ -15,7 +15,7 @@ const TableRow = ({
 }) => {
   const isCompleted = type === "completed";
   const toggledProgress = isCompleted ? "pending" : "completed";
-  window.console.log(data);
+  // window.console.log(data);
 
   return (
     <tbody className="divide-y divide-gray-200 bg-white">
