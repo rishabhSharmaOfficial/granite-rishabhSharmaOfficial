@@ -39,6 +39,6 @@ en:
   successfully_updated: "%{entity} was successfully updated!"
   successfully_deleted: "%{entity} was successfully deleted!"
   task:
-    not_found: "Couldn't find Task!"
+    not_found: "Couldn't find Task"
     slug:
       immutable: "is immutable!"
