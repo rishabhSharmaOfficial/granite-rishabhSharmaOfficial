@@ -36,6 +36,7 @@ en:
   incorrect_credentials: "Incorrect credentials, try again."
   successfully_created: "%{entity} was successfully created!"
   successfully_updated: "%{entity} was successfully updated!"
+  successfully_deleted: "%{entity} was successfully deleted!"
   authorization:
     denied: "Access denied. You are not authorized to perform this action."
   task:
