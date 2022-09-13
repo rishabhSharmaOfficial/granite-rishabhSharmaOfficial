@@ -16,6 +16,7 @@ class Task < ApplicationRecord
   validate :slug_not_changed
 
   before_create :set_slug
+  after_create :log_task_details
   # before_validation :set_title
   # before_save :change_title
 
@@ -53,6 +54,10 @@ class Task < ApplicationRecord
         unstarred = completed.unstarred.order("updated_at DESC")
       end
       starred + unstarred
+    end
+
+    def log_task_details
+      TaskLoggerJob.perform_later(self)
     end
 
   # def set_title
