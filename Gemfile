@@ -77,3 +77,7 @@ gem "sidekiq-cron"
 
 # For opening mails in development env
 gem "letter_opener", group: :development
+
+gem "sqlite3", "~> 1.4", group: [:development, :test]
+
+gem "pg", group: [:production]
