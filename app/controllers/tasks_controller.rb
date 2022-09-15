@@ -23,6 +23,9 @@ class TasksController < ApplicationController
     authorize @task
     @comments = @task.comments.order("created_at DESC")
   end
+  # def show
+  #   render status: :OK, json: { task: @task }
+  #  end
 
   def update
     authorize @task

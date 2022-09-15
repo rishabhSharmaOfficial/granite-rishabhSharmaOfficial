@@ -246,6 +246,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked_pdf (2.6.3)
+      activesupport
     zeitwerk (2.6.0)
 
 PLATFORMS
@@ -277,6 +279,7 @@ DEPENDENCIES
   tzinfo-data
   web-console (>= 4.1.0)
   webpacker (~> 5.0)
+  wicked_pdf
 
 RUBY VERSION
    ruby 3.0.2p107
